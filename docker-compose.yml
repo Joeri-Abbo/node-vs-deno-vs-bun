@@ -50,24 +50,24 @@ services:
       timeout: 10s
       retries: 3
 
-  monitoring:
-    build:
-      context: ./monitoring
-      dockerfile: Dockerfile
-    ports:
-      - "8888:8888"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./monitoring/notebooks:/app/notebooks
-      - ./monitoring/data:/app/data
-    environment:
-      - JUPYTER_ENABLE_LAB=yes
-    container_name: performance-monitor
-    restart: unless-stopped
-    depends_on:
-      - node-nextjs
-      - deno-nextjs
-      - bun-nextjs
+  # monitoring:
+  #   build:
+  #     context: ./monitoring
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8888:8888"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ./monitoring/notebooks:/app/notebooks
+  #     - ./monitoring/data:/app/data
+  #   environment:
+  #     - JUPYTER_ENABLE_LAB=yes
+  #   container_name: performance-monitor
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - node-nextjs
+  #     - deno-nextjs
+  #     - bun-nextjs
 
 networks:
   default:
