@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "deno task dev",
-    "build": "deno task build",
-    "start": "deno task start"
+    "dev": "next dev -p 3002",
+    "build": "next build",
+    "start": "next start -p 3002"
   },
   "dependencies": {
     "next": "15.5.5",
