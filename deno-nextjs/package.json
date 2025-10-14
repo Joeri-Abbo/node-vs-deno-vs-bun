@@ -1,0 +1,19 @@
+{
+  "name": "deno-nextjs-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "deno task dev",
+    "build": "deno task build",
+    "start": "deno task start"
+  },
+  "dependencies": {
+    "next": "14.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
+  }
+}

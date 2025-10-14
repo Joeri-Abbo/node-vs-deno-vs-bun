@@ -1,0 +1,74 @@
+services:
+  node-nextjs:
+    build:
+      context: ./node-nextjs
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    container_name: node-nextjs-app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  deno-nextjs:
+    build:
+      context: ./deno-nextjs
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002"
+    environment:
+      - DENO_ENV=production
+      - PORT=3002
+    container_name: deno-nextjs-app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  bun-nextjs:
+    build:
+      context: ./bun-nextjs
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    environment:
+      - NODE_ENV=production
+      - PORT=3003
+    container_name: bun-nextjs-app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  monitoring:
+    build:
+      context: ./monitoring
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./monitoring/notebooks:/app/notebooks
+      - ./monitoring/data:/app/data
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    container_name: performance-monitor
+    restart: unless-stopped
+    depends_on:
+      - node-nextjs
+      - deno-nextjs
+      - bun-nextjs
+
+networks:
+  default:
+    name: nextjs-comparison
