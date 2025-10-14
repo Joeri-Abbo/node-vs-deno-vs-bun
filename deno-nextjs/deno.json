@@ -1,13 +1,13 @@
 {
   "tasks": {
-    "dev": "deno run -A --node-modules-dir npm:next@14.0.0 dev -p 3002",
-    "build": "deno run -A --node-modules-dir npm:next@14.0.0 build",
-    "start": "deno run -A --node-modules-dir npm:next@14.0.0 start -p 3002"
+    "dev": "deno run -A --node-modules-dir npm:next@15.5.5 dev -p 3002",
+    "build": "deno run -A --node-modules-dir npm:next@15.5.5 build",
+    "start": "deno run -A --node-modules-dir npm:next@15.5.5 start -p 3002"
   },
   "imports": {
-    "next": "npm:next@14.0.0",
-    "react": "npm:react@^18.2.0",
-    "react-dom": "npm:react-dom@^18.2.0"
+    "next": "npm:next@15.5.5",
+    "react": "npm:react@^19.2.0",
+    "react-dom": "npm:react-dom@^19.2.0"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
