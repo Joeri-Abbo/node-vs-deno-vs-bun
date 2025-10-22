@@ -55,7 +55,7 @@ docker-compose ps
 - **Node.js Next.js**: http://localhost:3001
 - **Deno Next.js**: http://localhost:3002  
 - **Bun Next.js**: http://localhost:3003
-- **Jupyter Lab**: http://localhost:8888
+- **Jupyter Lab (monitoring)**: Monitoring has been moved to a separate repository — see https://github.com/Joeri-Abbo/docker-container-monitoring for the monitoring container, Jupyter notebook, and instructions.
 
 ### 3. Run Performance Analysis
 
@@ -100,11 +100,16 @@ docker-compose ps
 - **Package Manager**: bun (native)
 - **Health Check**: HTTP GET to `/`
 
-### Monitoring Container
-- **Base Image**: `python:3.11-slim`
-- **Port**: 8888 (Jupyter Lab)
-- **Volumes**: Docker socket, data persistence
-- **Libraries**: pandas, matplotlib, plotly, docker, psutil
+### Monitoring (moved to external repo)
+The performance monitoring tooling (Jupyter notebook, Python monitoring script and Dockerfile) has been moved to a separate repository to keep this project focused on the runtime comparison.
+
+Please visit the external monitoring repo for setup and usage:
+
+https://github.com/Joeri-Abbo/docker-container-monitoring
+
+That repository contains the monitoring Dockerfile, the `performance_monitor.py` script, the Jupyter notebook (`runtime_performance_comparison.ipynb`), and step-by-step instructions for collecting and visualizing performance data.
+
+If you still have a `monitoring/` folder in this workspace it is a legacy copy — use the linked repo above for the up-to-date monitoring workflow.
 
 ## 📈 Performance Analysis Workflow
 
@@ -129,14 +134,13 @@ docker build -t deno-nextjs ./deno-nextjs
 docker build -t bun-nextjs ./bun-nextjs
 
 # Monitoring
-docker build -t monitoring ./monitoring
+The monitoring tooling is maintained in a separate repository; see https://github.com/Joeri-Abbo/docker-container-monitoring for build and run instructions.
 ```
 
 ### Run Performance Monitor Standalone
-```bash
-# Inside monitoring container
-python performance_monitor.py --interval 5 --duration 120
-```
+The performance monitor is now hosted in the external repo. Follow that project's README to build and run the monitoring container and the Jupyter notebook. Example usage and CLI options are documented there:
+
+https://github.com/Joeri-Abbo/docker-container-monitoring
 
 ### Access Container Logs
 ```bash
