@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-node:
+    name: Build (Node.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: node-nextjs
+    strategy:
+      matrix:
+        node-version: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: node-nextjs/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+
+  build-bun:
+    name: Build (Bun)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: bun-nextjs
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build
+        run: bun run build
+
+  build-deno:
+    name: Build (Deno / npm)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: deno-nextjs
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js (for next build in deno-nextjs)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+          cache-dependency-path: deno-nextjs/yarn.lock
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build
+        run: yarn build
