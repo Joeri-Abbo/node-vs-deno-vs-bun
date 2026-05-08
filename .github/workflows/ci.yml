@@ -17,7 +17,7 @@ jobs:
       matrix:
         node-version: [20, 22]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -36,7 +36,7 @@ jobs:
       run:
         working-directory: bun-nextjs
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -53,7 +53,7 @@ jobs:
       run:
         working-directory: deno-nextjs
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup Node.js (for next build in deno-nextjs)
         uses: actions/setup-node@v4
         with:
